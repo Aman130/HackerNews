@@ -1,23 +1,25 @@
-import logo from './logo.svg';
+import React,{useState} from 'react'
 import './App.css';
 
+import Navbar from './components/Navbar'
+import Filters from './components/Filters/Filters';
+import News from './components/News/News';
+
+import {FilterProvider} from './context/filter-context';
+
 function App() {
+  const [feed,setFeed]=useState([]);
+  const newsItems=(items)=>{
+      console.log(items.hits);
+      setFeed(items.hits);
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="m-auto w-5/6">
+      <FilterProvider>
+        <Navbar />
+        <Filters getNewsItems={newsItems}/>
+        <News items={feed}/>
+      </FilterProvider>
     </div>
   );
 }
