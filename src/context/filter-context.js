@@ -8,7 +8,8 @@ export const FilterProvider = ({ children }) => {
     tag:"(story,comment)",
     sortBy:"Date",
     sortFrom:"All Time",
-    page:0
+    page:0,
+    nbPage:0
   }
 
   const [filterState,setFilterState] = useState(initialFilterState); 

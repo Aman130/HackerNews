@@ -1,6 +1,7 @@
 import React,{useContext} from 'react'
 import {FilterContext} from '../../context/filter-context'
-const Pagination=()=>{
+
+const Pagination=(props)=>{
 
     const [filter,setFilter]=useContext(FilterContext)
     const onClickPreviousHandler=()=>{
@@ -15,12 +16,15 @@ const Pagination=()=>{
     }
 
     const onClickNextHandler=()=>{
-        setFilter((prevState)=>{
-            return {
-                ...prevState,
-                page: prevState.page+1,
-            }
-        })
+        console.log(filter.page,props.nbPages)
+        if(filter.page<props.nbPages-1){
+            setFilter((prevState)=>{
+                return {
+                    ...prevState,
+                    page: prevState.page+1,
+                }
+            })
+        }
     }
 
     return (
