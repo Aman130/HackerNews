@@ -13,7 +13,6 @@ const Filters = (props) => {
     const [filter,setFilter]=useContext(FilterContext)
     
     useEffect(()=>{
-        console.log(filter);
         getItems(filter)
         .then((data)=>{
             props.getNewsItems(data)
@@ -47,15 +46,15 @@ const Filters = (props) => {
                 sortFrom: value
             }));
         }
-
     }
+
     return (
-        <div className='bg-gray-100 h-16 flex flex-row items-center '>
-            <h1 className="ml-2 mr-2">Search</h1>
+        <div className='h-12 flex flex-row items-center' style={{ backgroundColor: "#f6f6ef" }}>
+            <h1 className="text-xs ml-2 mr-2">Search</h1>
             <FilterItems dropdown={onDropdownChangeHandler} filter={filterArray[0]}/>
-            <h1 className="ml-2 mr-2">by</h1>
+            <h1 className="text-xs ml-2 mr-2">by</h1>
             <FilterItems dropdown={onDropdownChangeHandler} filter={filterArray[1]} />
-            <h1 className="ml-2 mr-2">for</h1>
+            <h1 className="text-xs ml-2 mr-2">for</h1>
             <FilterItems dropdown={onDropdownChangeHandler} filter={filterArray[2]}/>
         </div>
         

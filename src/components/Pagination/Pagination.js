@@ -1,52 +1,77 @@
-import React,{useContext} from 'react'
+import React,{useState,useContext} from 'react'
 import {FilterContext} from '../../context/filter-context'
 
 const Pagination=(props)=>{
-
     const [filter,setFilter]=useContext(FilterContext)
+    var pageArray=[];
+    var currPage=parseInt(filter.page)
+    
+    var tempPage=currPage;
+    var cnt=0;
+
+    while(tempPage>=0 && cnt<6){
+        pageArray.push(tempPage);
+        cnt++;
+        tempPage-=1;
+    }
+
+    pageArray.reverse();
+    
+    tempPage=currPage+1;
+    while(tempPage<Math.min(props.nbPages,currPage+6)){
+        pageArray.push(tempPage);
+        tempPage+=1;
+    }
+
     const onClickPreviousHandler=()=>{
         if(filter.page>0){
             setFilter((prevState)=>{
                 return {
                     ...prevState,
-                    page: prevState.page-1,
+                    page: 0,
                 }
             })
         }
     }
 
+    const onClickHandler=(event)=>{
+        const page=event.target.value
+        setFilter((prevState)=>{
+            return {
+                ...prevState,
+                page: page
+            }
+        })
+    }
+
     const onClickNextHandler=()=>{
-        console.log(filter.page,props.nbPages)
         if(filter.page<props.nbPages-1){
             setFilter((prevState)=>{
                 return {
                     ...prevState,
-                    page: prevState.page+1,
+                    page: props.nbPages-1,
                 }
             })
         }
     }
+    const pageIcons= pageArray.map((element) => <li><button value={element} onClick={onClickHandler} className={`${element==currPage ? 'border-[#ff742b]' : 'border-gray-400'} border-[1px] text-[12px] text-[#9d9d9d] rounded-sm justify-center items-center m-[2px] w-[30px] h-[24px] `}>{element+1}</button></li>);
 
     return (
-        <nav aria-label="Page navigation example">
-            <ul className="inline-flex items-center -space-x-px">
-                <li>
-                    <button onClick={onClickPreviousHandler} className="block px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700">
-                        Previous
-                    </button>
-                </li>
-                <li>
-                    <button href="#" className="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700">
-                        {filter.page+1}
-                    </button>
-                </li>
-                <li>
-                    <button  onClick={onClickNextHandler} className="block px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700">
-                        Next
-                    </button>
-                </li>
+        <div className='mb-2'>
+            <ul className="flex flex-wrap items-center justify-center">
+                {currPage!=0 &&
+                <li className="border-[1px] text-[12px] rounded-sm text-[#9d9d9d] justify-center items-center m-[2px] w-[30px] h-[24px] border-2 border-gray-400">
+                    <button onClick={onClickPreviousHandler}>&lt;&lt;</button>
+                </li>}
+                {
+                    pageIcons
+                }
+                {currPage+1!=props.nbPages &&
+                <li className="border-[1px] text-[12px] rounded-sm text-[#9d9d9d] justify-center items-center m-[2px] w-[30px] h-[24px] border-2 border-gray-400">
+                    <button  onClick={onClickNextHandler}>&gt;&gt;</button>
+                </li>}
             </ul>
-        </nav>
+        </div>
     );
 }
 

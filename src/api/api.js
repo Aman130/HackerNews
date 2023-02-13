@@ -33,7 +33,7 @@ const getItems=async(filter)=>{
         }
         hitURL1+=`&numericFilters=created_at_i>${createdAt.unix()}`
     }
-    console.log(hitURL1);
+
     try{
         const data= await axios.get(hitURL1)
         return data.data;

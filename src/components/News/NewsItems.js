@@ -4,15 +4,16 @@ import parse from 'html-react-parser';
 
 const NewsItems = (props) => {
     return (
-        <div className='h-auto ml-4 mb-4'>
-            <div className='font-semibold overflow-hidden'>
-                {props.item.title} {props.item.url!=null && (<a href={props.item.url} className="no-underline hover:underline text-zinc-400 text-base">({props.item.url})</a>)} 
+        <div className='h-auto ml-4 text-sm mb-1'>
+            <div className='font-light overflow-hidden'>
+                {props.item.title}
+                {props.item.url!=null && (<a href={props.item.url} style={{color:'#828282'}} className="text-[13px] no-underline hover:underline text-zinc-400"> ({props.item.url})</a>)} 
             </div>
-            <div className='text-[11.6667px] text-zinc-400'>
-                {props.item.points} points by {props.item.author} | {moment(props.item.created_at_i*1000).fromNow()} | {props.item.num_comments} comments | hide | past | discuss
+            <div className='text-[10px] text-gray-500 tracking-[0.030rem]'>
+                {props.item.points} points | {props.item.author} | {moment(props.item.created_at_i*1000).fromNow()} | {props.item.num_comments} comments
             </div>
             <div>
-                {(props.item.story_text!=null && <p className='text-[12.6667px]'>{parse (props.item.story_text)}</p>)}
+                {(props.item.story_text!=null && <p className='text-[12px]'>{parse (props.item.story_text)}</p>)}
             </div>
         </div>
     )
