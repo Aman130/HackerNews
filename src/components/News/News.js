@@ -12,7 +12,7 @@ const News = (props) => {
 
     return (
         <>
-            <div style={{ backgroundColor: "#f6f6ef" }}>
+            <div className={"pt-[0.3rem]"} style={{ backgroundColor: "#f6f6ef" }}>
                 <div className='mr-1'>
                     {newsItems}
                     <Pagination nbPages={props.nbPages}/>

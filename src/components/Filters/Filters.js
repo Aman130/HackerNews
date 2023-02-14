@@ -49,15 +49,14 @@ const Filters = (props) => {
     }
 
     return (
-        <div className='h-12 flex flex-row items-center' style={{ backgroundColor: "#f6f6ef" }}>
-            <h1 className="text-xs ml-2 mr-2">Search</h1>
+        <div className='w-full h-10 flex flex-row items-center' style={{ backgroundColor: "#f6f6ef" }}>
+            <div className="text-xs ml-2 mr-2">Search</div>
             <FilterItems dropdown={onDropdownChangeHandler} filter={filterArray[0]}/>
-            <h1 className="text-xs ml-2 mr-2">by</h1>
+            <div className="text-xs ml-2 mr-2">by</div>
             <FilterItems dropdown={onDropdownChangeHandler} filter={filterArray[1]} />
-            <h1 className="text-xs ml-2 mr-2">for</h1>
+            <div className="text-xs ml-2 mr-2">for</div>
             <FilterItems dropdown={onDropdownChangeHandler} filter={filterArray[2]}/>
         </div>
-        
     )
 }
 

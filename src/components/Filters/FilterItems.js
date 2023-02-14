@@ -1,15 +1,37 @@
-import React from 'react'
+import React,{useEffect,useRef} from 'react'
 
 const FilterItems = (props) => {
+    const selectRef = useRef(null);
+    const testerRef = useRef(null);
+
+    useEffect(() => {
+        const select = selectRef.current;
+        const tester = testerRef.current;
+
+        select.addEventListener("change", () => {
+        const opt = select.selectedOptions[0];
+
+        tester.style.fontFamily = opt.style.fontFamily;
+        tester.style.fontStyle = opt.style.fontStyle;
+        tester.style.fontWeight = opt.style.fontWeight;
+        tester.style.fontSize = opt.style.fontSize;
+        tester.textContent = opt.textContent;
+
+        select.style.width = `${tester.offsetWidth + 30}px`;
+        });
+
+        select.dispatchEvent(new Event("change"));
+    }, [])
 
     const options = props.filter.map((element) => <option value={element} key={element}>{element}</option>);
     return (
         <div>
-            <select onChange={props.dropdown} style={{ backgroundColor: "#f6f6ef" }} className="text-gray-500 text-sm block mt-6 p-[3px] mb-6 text-sm border border-gray-300 bg-gray-50 focus:ring-blue-500 focus:border-blue-500">
+            <select ref={selectRef} onChange={props.dropdown} style={{backgroundColor: "#f6f6ef" }} className="outline-none form-select text-gray-500 text-sm p-[2px] border border-gray-300 bg-gray-50">
             {
-                options
+                options 
             }
             </select>
+            <span ref={testerRef} className="tester" style={{ position: "absolute", left: -9999 }} />
         </div>
     )
 }
